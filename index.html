@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake - Przestępstwa komputerowe</title>
+    <link rel=stylesheet id="style" type="text/css" href="./css/main-snake.css" />
+    <link rel="shortcut icon" href="css/images/favicon.png" />
+    <style>
+    .snake-toolbar {
+        position: absolute;
+        top: 1.5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10000;
+        padding: 5px;
+        text-align: center;
+    }
+
+    button {
+            padding: 7px 18px;
+            margin: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #9ca4a3; 
+            color: white; 
+            border: 1px solid #828e8f; 
+            border-radius: 5px; 
+        }
+
+        button:hover {
+            background-color: #7c8383; 
+        }
+
+        button:active {
+            background-color: #81898a; 
+    }
+
+    select {
+        padding: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        border: 1px solid #7c7b7b; 
+        border-radius: 5px; 
+        background-color: #fff; 
+        color: #333; 
+        transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+
+    select:hover {
+        border-color: #fff; 
+    }
+
+    select:focus {
+        outline: none;
+        border-color: #fff;  
+    }
+
+    </style>
+<script>
+
+function getTheme () {
+    function changeTheme(themeUrl) {
+      var elm = document.getElementById("style");
+      elm && elm.remove();
+
+      var newCss = document.createElement("link");
+      newCss.id = "style";
+      newCss.rel = "stylesheet";
+      newCss.type = "text/css";
+      newCss.href = themeUrl;
+      document.head.appendChild(newCss);
+    }
+    var index = document.getElementById("select").selectedIndex;
+    switch (index) {
+        case 0: 
+          changeTheme('css/main-snake.css?' + Math.random());
+          break;
+        case 1: 
+          changeTheme('css/matrix-snake.css?' + Math.random());
+          break;
+        case 2: 
+          changeTheme('css/head-snake.css?' + Math.random());
+          break;
+        case 3: 
+          changeTheme('css/dark-snake.css?' + Math.random());
+          break;
+    }
+    setTimeout(function() {
+        document.getElementById('game-area').focus();
+    }, 10);
+}
+
+
+</script>
+</head>
+<body>
+    <div class="snake-toolbar">
+      <div style="display:inline-block;margin-right:10px;">
+        <span><strong>Zagadnienia:</strong></span>
+        <select autocomplete="off" onchange="getTheme()" id="select">
+            <option value="1" selected>Rodzaje przestępców komputerowych</option>
+            <option value="2">Metody przestępstw komputerowych</option>
+            <option value="3">Badware i jego rodzaje</option>
+            <option value="4">Rodzaje piractwa komputerowego</option>
+        </select>
+      </div>
+      <div style="display:inline-block;margin-right:10px;">
+        <span><strong>Poziom trudności:</strong></span>
+        <select id="selectMode">
+            <option value="100">Łatwy</option>
+            <option value="75" selected>Średni</option>
+            <option value="50">Trudny</option>
+            <option value="25">Zaawansowany</option>
+        </select>
+      </div>
+      <button onclick="go_full_screen()">Full Screen</button><br />
+    </div>
+
+
+    <div id="mode-wrapper" style="display: inline; width: auto;">
+    </div>
+
+    <div id="game-area" tabindex="0">
+    </div>
+    <script type="text/javascript" src="./js/script.js"></script>
+    <script type="text/javascript" src="./js/init.js"></script>
+    <script type="text/javascript">
+      function go_full_screen() {
+        var elem = document.documentElement;
+        try {
+            if (elem.requestFullscreen) {
+              elem.requestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+              elem.msRequestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+              elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) {
+              elem.webkitRequestFullscreen();
+            }
+        } catch(err) {
+          console.error(err);
+          alert("Tryb pełnoekranowy nie będzie działać w tej konfiguracji.");
+        }
+      }
+  </script>
+</body>
+</html>
